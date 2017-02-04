@@ -16,7 +16,7 @@ public class LeitorXML {
 		XStream xStream = new XStream(new DomDriver());
 		xStream.autodetectAnnotations(true);
 		xStream.processAnnotations(Negociacao.class);
-		xStream.alias("leitor", Negociacao.class);
+		xStream.alias("negociacao", Negociacao.class);
 		
 		return ((List<Negociacao>) xStream.fromXML(inputStream));	
 	}

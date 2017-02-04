@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Assert;
 import org.junit.Test;
 
+import br.com.caelum.argentum.indicadores.Indicador;
+import br.com.caelum.argentum.indicadores.IndicadorFechamento;
 import br.com.caelum.argentum.indicadores.MediaMovelPonderada;
 import br.com.caelum.argentum.indicadores.MediaMovelSimples;
 import br.com.caelum.argentum.modelo.GerardorDeSerie;
@@ -17,7 +19,7 @@ public class MediaMovelSimplesTest {
 		
 		SerieTemporal serie = GerardorDeSerie.criaSerie(1,2,3,4,3,4,5,4,3);
 		
-		MediaMovelSimples mms = new MediaMovelSimples();
+		Indicador mms = new MediaMovelSimples(new IndicadorFechamento());
 		
 		Assert.assertEquals(2.0,  mms.calcula(2, serie), 0.00001);
 		Assert.assertEquals(3.0,  mms.calcula(3, serie), 0.00001);
@@ -33,7 +35,7 @@ public class MediaMovelSimplesTest {
 		
 		SerieTemporal serie = GerardorDeSerie.criaSerie(1,2,3,4,3,4,5,4,3);
 		
-		MediaMovelPonderada mmp = new MediaMovelPonderada();
+		MediaMovelPonderada mmp = new MediaMovelPonderada(mmp);
 		
 		Assert.assertEquals(14.0/6,  mmp.calcula(2, serie), 0.00001);
 		Assert.assertEquals(20.0/6, mmp.calcula(3, serie), 0.00001);

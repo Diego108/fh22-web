@@ -12,11 +12,6 @@ public class SerieTemporal {
 		this.candles = candles;
 	}
 
-	public List<Candlestick> getCandles() {
-	
-		return candles;
-	}
-	
 	public Candlestick getCandles(int position) {
 		
 		return this.candles.get(position);

@@ -2,15 +2,23 @@ package br.com.caelum.argentum.modelo;
 
 import java.util.Calendar;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-
-@XStreamAlias("negociacao")
 public final class Negociacao {
 
 	private final double preco;
 	private final int quantidade;
 	private final Calendar data;
-	
+
+	public Negociacao(double preco, int quantidade, Calendar data) {
+		
+		if (data == null) {
+			throw new IllegalArgumentException("data nao pode ser nula");
+		}
+		
+		this.preco = preco;
+		this.quantidade = quantidade;
+		this.data = (Calendar) data.clone();
+	}
+
 	public double getPreco() {
 		return preco;
 	}
@@ -20,33 +28,17 @@ public final class Negociacao {
 	}
 
 	public Calendar getData() {
-		return (Calendar)this.data.clone();
-	}
-	
-	public double getVoume(){
-		
-		return this.preco * this.quantidade;
+		return (Calendar) data.clone();
 	}
 
-	public Negociacao(double preco, int quantidade, Calendar data) {
-		
-		if(data == null){
-			
-			throw new IllegalArgumentException("data nao pode ser nula");
-		}
-		
-		this.preco = preco;
-		this.quantidade = quantidade;
-		this.data = data;
+	public double getVolume() {
+		return preco * quantidade;
 	}
 
-	public boolean isMesmoDia(Calendar mesmoMomento) {
-		// TODO Auto-generated method stub
-		return this.data.get(Calendar.DAY_OF_MONTH) ==
-							 	mesmoMomento.get(Calendar.DAY_OF_MONTH) &&
-							 this.data.get(Calendar.MONTH) ==
-							 	mesmoMomento.get(Calendar.MONTH) &&
-							 this.data.get(Calendar.YEAR) ==
-								 mesmoMomento.get(Calendar.YEAR);
+	public boolean isMesmoDia(Calendar outraData) {
+		return this.data.get(Calendar.DATE) == outraData.get(Calendar.DATE) &&
+				   this.data.get(Calendar.MONTH) == outraData.get(Calendar.MONTH) &&
+				   this.data.get(Calendar.YEAR) == outraData.get(Calendar.YEAR);
 	}
+
 }

@@ -3,8 +3,16 @@ package br.com.caelum.argentum.indicadores;
 import br.com.caelum.argentum.modelo.Candlestick;
 import br.com.caelum.argentum.modelo.SerieTemporal;
 
-public class MediaMovelPonderada {
+public class MediaMovelPonderada implements Indicador{
 
+	private Indicador outroIndicador;
+
+	public MediaMovelPonderada(Indicador outroIndicador){
+		this.outroIndicador = outroIndicador;
+		
+	}
+	
+	
 	public double calcula(int posicao, SerieTemporal serie){
 		
 		double soma = 0.0;
@@ -13,10 +21,15 @@ public class MediaMovelPonderada {
 		for(int i = posicao; i > posicao - 3; i--){
 			
 			Candlestick c = serie.getCandles(i);
-			soma += c.getFechamento() * peso;
+			soma += outroIndicador.calcula(i, serie) * peso;
 			peso--;
 		}
 		
 		return soma / 6;
+	}
+	
+	public String toString(){
+		
+		return "MMP de fechamento";
 	}
 }
